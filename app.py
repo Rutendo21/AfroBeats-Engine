@@ -90,18 +90,6 @@ def LoadData(Artist):
     
     Filename = Artist + '.txt'
     FilePath = DirectoryPath + Filename
-    if os.path.exists(FilePath):
-        pass
-    else:
-        with open(FilePath, 'w' , encoding='utf-8') as File:
-            ArtistSongs = genius.search_artist(Artist, sort='title', include_features=True)
-            Songs = ArtistSongs.songs
-            for Song in Songs:
-                SongTitles.append(Song.title)
-                SongLyrics = Song.lyrics
-                File.write(SongLyrics)
-                File.write('\n \n \n')
-        File.close()
     
     with open(FilePath, 'r', encoding='utf-8') as File:
         FileContent = File.readlines()
