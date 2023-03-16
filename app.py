@@ -28,6 +28,21 @@ def homepage():
             Artists.append(Artist)
         
         return render_template("index.html", Artists=Artists)
+    
+    elif request.method == "POST":
+        Artist = request.form.get("Artist");
+        
+        Song = main(Artist)
+        
+        Artists = []
+        file = open("AfroBeatsArtists.csv", "r")
+        reader = csv.reader(file)
+        next(reader)
+        for row in reader:
+            Artist = row
+            Artists.append(Artist)
+            
+        return render_template("index.html", Song=Song, Artists=Artists)
 
 def main(Artist):
     
