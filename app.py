@@ -85,8 +85,8 @@ def LoadData(Artist):
     SongTitles = []
     
     Path = os.getcwd()
-    Directoryname = '\LyricsByArtist'
-    DirectoryPath = Path + Directoryname + '\\'
+    Directoryname = '/LyricsByArtist'
+    DirectoryPath = Path + Directoryname + '/'
     
     Filename = Artist + '.txt'
     FilePath = DirectoryPath + Filename
