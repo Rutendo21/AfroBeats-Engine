@@ -1,0 +1,94 @@
+body
+{
+    background-image: url(/static/Background.jpg);
+    background-size: cover;
+}
+
+.Position
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Circle
+{
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    position: relative;
+    border: 10px solid #E1C6B2;
+}
+
+h1
+{
+    text-align: center;
+    font-size: 26px;
+    color: #E1C6B2;
+    font-weight: bold;
+    position: absolute;
+    bottom: 62%;
+    width: 80%;
+    padding-right: 10%;
+    padding-left: 10%;
+    font-family: arial;
+}
+
+.Artist
+{
+    width: 30%;
+    font-size: 13px;
+    background-color: #FFFFFF;
+    border: solid;
+    border-width: 2px;
+    border-color: #000000;
+    border-radius: 5px;
+    color: #000000;
+    position: absolute;
+    bottom: 47%;
+    right: 35%;
+    font-family: arial;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Position2
+{
+    padding-top: 50px;
+}
+
+.SmallCircle
+{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: absolute;
+    background: #FFFFFF;
+    border: 7px solid #E1C6B2;
+    left: 50%;
+}
+
+.Song
+{
+    text-align: center;
+    font-size: 12.3px;
+    position: absolute;
+    padding-right: 8%;
+    padding-left: 8%;
+    font-family: arial;
+    font-style: italic;
+    font-weight: lighter;
+    color: #000000;
+    top: 23%;
+    font-weight: bolder;
+}
+
+.Line
+{
+    line-height: 13px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}

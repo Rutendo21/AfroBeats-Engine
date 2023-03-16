@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, width=device-width">
+        <link href="static/styles.css" rel="stylesheet">
+        <link href="static/AfrobeatsToTheWorld.jpg" rel="icon">
+        
+        <title>AfroBeats Engine</title>
+
+    </head>
+
+    <body>
+
+        <br></br>
+        <br></br>
+
+        <form action="/" method="post" class="Submit" id="Form">
+            <div class="Position">
+                <div class="Circle">
+                    <div class="Text">
+                        <h1 id="id">BeGiN  To  CrEaTe  YoUr  FaVoUrItE  ArTiSt'S  NeXt  HiT</h1>
+                        <br></br>
+                        <br></br>
+                        <div class='Artists'>
+                            <select class="Artist" id="Artist" name="Artist" onchange="this.form.submit()" required>
+                                <option disabled selected value="">Artist</option>
+                                {% for Artist in Artists %}
+                                <option class="ArtistName" required>{{Artist[0]}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Position2">
+                    <div class="SmallCircle">
+                        <div class="Song"> 
+                            {% for Line in Song %}
+                            <p class="Line">{{Line}}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+    </body>
+
+    <footer></footer>
+
+</html>
