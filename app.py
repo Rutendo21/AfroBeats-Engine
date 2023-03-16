@@ -15,7 +15,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def homepage():
     
     if request.method == "GET":
