@@ -5,6 +5,7 @@ import lyricsgenius
 import markovify
 import random
 import nltk
+nltk.download('punkt')
 import string
 import math
 
