@@ -5,9 +5,9 @@ import lyricsgenius
 import markovify
 import random
 import nltk
-nltk.download('punkt')
 import string
 import math
+import language_tool_python
 
 UPLOAD_FOLDER = "LyricsByArtist"
 app = Flask(__name__)
@@ -15,6 +15,8 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
+
+tool = language_tool_python.LanguageTool('en-UK')
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -29,27 +31,12 @@ def homepage():
             Artists.append(Artist)
         
         return render_template("index.html", Artists=Artists)
-    
-    elif request.method == "POST":
-        Artist = request.form.get("Artist");
-        
-        Song = main(Artist)
-        
-        Artists = []
-        file = open("AfroBeatsArtists.csv", "r")
-        reader = csv.reader(file)
-        next(reader)
-        for row in reader:
-            Artist = row
-            Artists.append(Artist)
-            
-        return render_template("index.html", Song=Song, Artists=Artists)
 
 def main(Artist):
     
     File, FilePath, SongTitles, ThemeWords, Sounds = LoadData(Artist)
     
-    StopWords = []
+    StopWords = nltk.corpus.stopwords.words("english")
     
     ThemeWord, ThemeSound = Theme(SongTitles, ThemeWords, Sounds)
     
@@ -86,11 +73,23 @@ def LoadData(Artist):
     SongTitles = []
     
     Path = os.getcwd()
-    Directoryname = '/LyricsByArtist'
-    DirectoryPath = Path + Directoryname + '/'
+    Directoryname = '\LyricsByArtist'
+    DirectoryPath = Path + Directoryname + '\\'
     
     Filename = Artist + '.txt'
     FilePath = DirectoryPath + Filename
+    if os.path.exists(FilePath):
+        pass
+    else:
+        with open(FilePath, 'w' , encoding='utf-8') as File:
+            ArtistSongs = genius.search_artist(Artist, sort='title', include_features=True)
+            Songs = ArtistSongs.songs
+            for Song in Songs:
+                SongTitles.append(Song.title)
+                SongLyrics = Song.lyrics
+                File.write(SongLyrics)
+                File.write('\n \n \n')
+        File.close()
     
     with open(FilePath, 'r', encoding='utf-8') as File:
         FileContent = File.readlines()
@@ -210,21 +209,25 @@ def tokenize(Sentence, StopWords):
 
 def Grammar(Sentence):
     
-    Words = Sentence.split()
-    TaggedSentence = nltk.tag.pos_tag(Words)
-    NumberOfCategories = len(TaggedSentence)
+    Matches = tool.check(Sentence)
+    NumberOfMistakes = len(Matches)
+        
+    if NumberOfMistakes < 3:
+        Words = Sentence.split()
+        TaggedSentence = nltk.tag.pos_tag(Words)
+        NumberOfCategories = len(TaggedSentence)
             
-    VBResult = VB(TaggedSentence, NumberOfCategories)
-    VBPResult = VBP(TaggedSentence, NumberOfCategories)
-    NNResult = NN(TaggedSentence, NumberOfCategories)
-    NNPResult = NNP(TaggedSentence, NumberOfCategories)
-    RPResult = RP(TaggedSentence, NumberOfCategories)
-    INResult = IN(TaggedSentence, NumberOfCategories)
-    RBResult = RB(TaggedSentence, NumberOfCategories)
-    PRPResult = PRP(TaggedSentence, NumberOfCategories)
+        VBResult = VB(TaggedSentence, NumberOfCategories)
+        VBPResult = VBP(TaggedSentence, NumberOfCategories)
+        NNResult = NN(TaggedSentence, NumberOfCategories)
+        NNPResult = NNP(TaggedSentence, NumberOfCategories)
+        RPResult = RP(TaggedSentence, NumberOfCategories)
+        INResult = IN(TaggedSentence, NumberOfCategories)
+        RBResult = RB(TaggedSentence, NumberOfCategories)
+        PRPResult = PRP(TaggedSentence, NumberOfCategories)
             
-    if VBResult == True and VBPResult == True and NNResult == True and NNPResult == True and RPResult == True and INResult == True and RBResult == True and PRPResult == True:
-        return True
+        if VBResult == True and VBPResult == True and NNResult == True and NNPResult == True and RPResult == True and INResult == True and RBResult == True and PRPResult == True:
+            return True
               
     return False
     
