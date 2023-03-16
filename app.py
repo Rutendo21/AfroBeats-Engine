@@ -2,6 +2,15 @@ from flask import Flask, render_template, request
 import csv
 import os
 import lyricsgenius
+import markovify
+import random
+import nltk
+import string
+
+UPLOAD_FOLDER = "LyricsByArtist"
+application = Flask(__name__)
+application.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+application.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
 
@@ -24,6 +33,19 @@ def homepage():
 def main(Artist):
     
     File, FilePath, SongTitles, ThemeWords, Sounds = LoadData(Artist)
+    
+    StopWords = nltk.corpus.stopwords.words("english")
+    
+    ThemeWord, ThemeSound = Theme(SongTitles, ThemeWords, Sounds)
+    
+    ArtistSongs = open(FilePath, 'r', encoding='utf-8')
+    ArtistSongsContent = ArtistSongs.readlines()
+    ArtistSongs.close()
+    
+    TextModel = markovify.NewlineText(File, state_size=3)
+    TextModel = TextModel.compile()
+    
+    FirstLines = PossibleOpenings(TextModel, ArtistSongsContent)
     
 def LoadData(Artist):
     
@@ -81,6 +103,91 @@ def LoadData(Artist):
     File.close()
     
     return FileContent, FilePath, SongTitles, ThemeWords, Sounds
+
+def Theme(SongTitles, ThemeWords, Sounds):
+    
+    while True:
+        RandomChoiceThemeWord = random.choice(ThemeWords)
+        Quit = 0
+        if RandomChoiceThemeWord in Sounds:
+            Quit = 1
+        for SongTitle in SongTitles:
+            if RandomChoiceThemeWord in SongTitle.lower():
+                Quit = 1
+        if Quit == 0:
+            break
+        
+    RandomChoiceSound = random.choice(Sounds)
+        
+    return RandomChoiceThemeWord, RandomChoiceSound
+
+
+def PossibleOpenings(TextModel, ArtistSongsContent):
+    
+    FirstLines = []  
+
+    for i in range(50):
+        PossibleOpenings = FirstLines
+        while True:
+            while True:
+                FirstLine = TextModel.make_short_sentence(70)
+                if FirstLine != None:
+                    Quit = 0
+                    Words = {}
+                    AllWords = []
+                    ActualWords = tokenize(FirstLine, StopWords=[])
+                    FirstLineWords = (FirstLine.split(" "))
+                    FirstLineWordsCount = len(FirstLineWords)
+                    for i in range(FirstLineWordsCount):
+                        Word = FirstLineWords[i].split(",")
+                        Word = Word[0].lower()
+                        AllWords.append(Word)
+                else:
+                    continue
+                    
+                for ActualWord in ActualWords:
+                    Words[ActualWord] = 0
+                    for Word in AllWords:
+                        if ActualWord == Word:
+                            Words[ActualWord] += 1
+                        if Words[ActualWord] > 3:
+                            Quit = 1
+                            
+                if Quit > 0:
+                    continue
+                else:
+                    PhrasesCount = 0
+                    if FirstLine != None:
+                        Phrases = FirstLine.split(",")
+                        PhrasesCount = len(Phrases)
+                    if PhrasesCount > 1:
+                        continue
+                    else:
+                        break
+                
+            if FirstLine not in PossibleOpenings and FirstLine != None and FirstLine not in ArtistSongsContent:
+                break
+            else:
+                continue
+                    
+        FirstLines.append(FirstLine.capitalize())
+                    
+    return FirstLines
+
+
+def tokenize(Sentence, StopWords):
+    
+    SentenceWords = []
+
+    words = nltk.tokenize.word_tokenize(Sentence)
+    for word in words:
+        word = word.lower()
+        punctuations = string.punctuation
+        if word not in StopWords and word not in punctuations and word not in SentenceWords:
+            SentenceWords.append(word)
+        
+    return SentenceWords
+
 
 if __name__ == "__main__":
     app.run()
