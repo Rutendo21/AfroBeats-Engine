@@ -16,6 +16,8 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
 
+os.chdir('/tmp')
+
 tool = language_tool_python.LanguageTool('en-UK')
 
 @app.route("/", methods=["GET", "POST"])
