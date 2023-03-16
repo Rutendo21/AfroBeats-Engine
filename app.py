@@ -48,7 +48,7 @@ def main(Artist):
     
     File, FilePath, SongTitles, ThemeWords, Sounds = LoadData(Artist)
     
-    StopWords = nltk.download('stopwords')
+    StopWords = []
     
     ThemeWord, ThemeSound = Theme(SongTitles, ThemeWords, Sounds)
     
