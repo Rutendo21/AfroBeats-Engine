@@ -16,8 +16,6 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
 
-os.chdir('/tmp')
-
 tool = language_tool_python.LanguageTool('en-UK')
 
 @app.route("/", methods=["GET", "POST"])
@@ -33,6 +31,21 @@ def homepage():
             Artists.append(Artist)
         
         return render_template("index.html", Artists=Artists)
+
+    elif request.method == "POST":
+        Artist = request.form.get("Artist");
+        
+        Song = main(Artist)
+        
+        Artists = []
+        file = open("AfroBeatsArtists.csv", "r")
+        reader = csv.reader(file)
+        next(reader)
+        for row in reader:
+            Artist = row
+            Artists.append(Artist)
+            
+        return render_template("index.html", Song=Song, Artists=Artists)
 
 def main(Artist):
     
@@ -142,7 +155,6 @@ def Theme(SongTitles, ThemeWords, Sounds):
         
     return RandomChoiceThemeWord, RandomChoiceSound
 
-
 def PossibleOpenings(TextModel, ArtistSongsContent):
     
     FirstLines = []  
@@ -195,7 +207,6 @@ def PossibleOpenings(TextModel, ArtistSongsContent):
                     
     return FirstLines
 
-
 def tokenize(Sentence, StopWords):
     
     SentenceWords = []
@@ -232,8 +243,7 @@ def Grammar(Sentence):
             return True
               
     return False
-    
-            
+      
 def VB(TaggedSentence, NumberOfCategories):
     
     for i in range(NumberOfCategories):
@@ -245,7 +255,6 @@ def VB(TaggedSentence, NumberOfCategories):
     
     return True
             
-
 def VBP(TaggedSentence, NumberOfCategories):
     
     for i in range(NumberOfCategories):
@@ -269,7 +278,6 @@ def NN(TaggedSentence, NumberOfCategories):
     
     return True
 
-
 def NNP(TaggedSentence, NumberOfCategories):
     
     for i in range(NumberOfCategories):
@@ -281,7 +289,6 @@ def NNP(TaggedSentence, NumberOfCategories):
     
     return True
 
-
 def RP(TaggedSentence, NumberOfCategories):
     
     for i in range(NumberOfCategories):
@@ -292,7 +299,6 @@ def RP(TaggedSentence, NumberOfCategories):
                     return False
     
     return True
-
 
 def IN(TaggedSentence, NumberOfCategories):
         
@@ -317,7 +323,6 @@ def RB(TaggedSentence, NumberOfCategories):
     
     return True
 
-
 def PRP(TaggedSentence, NumberOfCategories):
     
     for i in range(NumberOfCategories):
@@ -328,7 +333,6 @@ def PRP(TaggedSentence, NumberOfCategories):
                     return False
     
     return True
-
 
 def Opening(FirstLines, ArtistSongsContent, ThemeWord, ThemeSound, ThemeWords, Sounds):
     
@@ -443,7 +447,6 @@ def Opening(FirstLines, ArtistSongsContent, ThemeWord, ThemeSound, ThemeWords, S
             break
     
     return OpeningLine
-
 
 def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, ThemeWord, StopWords):
     
@@ -561,7 +564,6 @@ def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, The
                         
     return Lyrics
 
-
 def CalculateIDFs(AllFirstLineWords, SongPartsFirstLines):
     
     IDFs = {}
@@ -583,7 +585,6 @@ def CalculateIDFs(AllFirstLineWords, SongPartsFirstLines):
             IDFs[Word] = IDF
         
     return IDFs
-
 
 def TopSentences(ChorusWords, IDFs, SongPartsFirstLines, StopWords):
     
