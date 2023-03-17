@@ -8,6 +8,8 @@ import nltk
 nltk.download('all')
 import string
 import math
+import language_tool_python
+import pyLanguagetool
 
 UPLOAD_FOLDER = "LyricsByArtist"
 app = Flask(__name__)
