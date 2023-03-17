@@ -520,7 +520,7 @@ def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, The
                                 PreviousWordsAppearence += 1 
                      
                     if LengthCount % 2 == 0:
-                        if PreviousWordsAppearence != 2:
+                        if PreviousWordsAppearence != 2 and PreviousWordsAppearence != 1:
                             Quit = 1
                     else:
                         if PreviousWordsAppearence != 1:
