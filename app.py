@@ -8,7 +8,6 @@ import nltk
 nltk.download('all')
 import string
 import math
-import language_tool_python
 
 UPLOAD_FOLDER = "LyricsByArtist"
 app = Flask(__name__)
@@ -16,8 +15,6 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
-
-tool = language_tool_python.LanguageTool('en-UK')
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
