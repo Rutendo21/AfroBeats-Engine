@@ -520,7 +520,7 @@ def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, The
                                 PreviousWordsAppearence += 1 
                      
                     if LengthCount % 2 == 0:
-                        if PreviousWordsAppearence != 2 and PreviousWordsAppearence != 1:
+                        if PreviousWordsAppearence != 2:
                             Quit = 1
                     else:
                         if PreviousWordsAppearence != 1:
@@ -528,11 +528,7 @@ def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, The
                             
                     if Quit == 0:
                         
-                        print(f'{PreviousLyric}')
-                        print(f'{PreviousWords}')
                         print(f'{ActualPreviousLyricTopSentence}')
-                        print(f'{ActualPreviousLyricTopSentenceWords}')
-                        print(f'{LyricWords}')
                         print(f'{PreviousWordsAppearence}')
                         
                         PreviousLyric = ActualPreviousLyricTopSentence
@@ -543,11 +539,7 @@ def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, The
                 else:
                     PreviousWordsAppearence = 0
                     
-                    print(f'{PreviousLyric}')
-                    print(f'{PreviousWords}')
                     print(f'{ActualPreviousLyricTopSentence}')
-                    print(f'{ActualPreviousLyricTopSentenceWords}')
-                    print(f'{LyricWords}')
                     print(f'{PreviousWordsAppearence}')
                     
                     PreviousLyric = ActualPreviousLyricTopSentence
