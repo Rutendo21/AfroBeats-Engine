@@ -16,6 +16,10 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
 
+tool2 = pyLanguagetool.LanguageTool('en-UK')
+
+tool = language_tool_python.LanguageTool('en-UK')
+
 @app.route("/", methods=["GET", "POST"])
 def homepage():
     
@@ -520,7 +524,7 @@ def WriteVerse(FirstLine, TextModel, ArtistSongsContent, Sounds, ThemeSound, The
                                 PreviousWordsAppearence += 1 
                      
                     if LengthCount % 2 == 0:
-                        if PreviousWordsAppearence != 2 or PreviousWordsAppearence != 1:
+                        if PreviousWordsAppearence != 2:
                             Quit = 1
                     else:
                         if PreviousWordsAppearence != 1:
