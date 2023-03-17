@@ -5,8 +5,6 @@ import lyricsgenius
 import markovify
 import random
 import nltk
-nltk.download('all')
-from nltk.corpus import stopwords
 import string
 import math
 
@@ -50,7 +48,7 @@ def main(Artist):
     
     File, FilePath, SongTitles, ThemeWords, Sounds = LoadData(Artist)
     
-    StopWords = stopwords
+    StopWords = nltk.download('stopwords')
     
     ThemeWord, ThemeSound = Theme(SongTitles, ThemeWords, Sounds)
     
