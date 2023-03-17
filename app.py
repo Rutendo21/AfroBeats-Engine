@@ -7,7 +7,6 @@ import random
 import nltk
 nltk.download('all')
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 import string
 import math
 
@@ -211,7 +210,7 @@ def tokenize(Sentence, StopWords):
     
     SentenceWords = []
 
-    words = word_tokenize(Sentence)
+    words = nltk.tokenize.word_tokenize(Sentence)
     for word in words:
         word = word.lower()
         punctuations = string.punctuation
