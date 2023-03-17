@@ -7,7 +7,6 @@ import random
 import nltk
 import string
 import math
-import language_tool_python
 
 UPLOAD_FOLDER = "LyricsByArtist"
 app = Flask(__name__)
@@ -15,8 +14,6 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 genius = lyricsgenius.Genius('fu-Qcgs1IoyfYwlgxbe2_KZkLaV7fLxCQkZxaVwOQ0ovibQJMHOSyLivmtGNQWnd', remove_section_headers = True, timeout=120)
-
-tool = language_tool_python.LanguageTool('en-UK')
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -222,25 +219,21 @@ def tokenize(Sentence, StopWords):
 
 def Grammar(Sentence):
     
-    Matches = tool.check(Sentence)
-    NumberOfMistakes = len(Matches)
-        
-    if NumberOfMistakes < 3:
-        Words = Sentence.split()
-        TaggedSentence = nltk.tag.pos_tag(Words)
-        NumberOfCategories = len(TaggedSentence)
+    Words = Sentence.split()
+    TaggedSentence = nltk.tag.pos_tag(Words)
+    NumberOfCategories = len(TaggedSentence)
             
-        VBResult = VB(TaggedSentence, NumberOfCategories)
-        VBPResult = VBP(TaggedSentence, NumberOfCategories)
-        NNResult = NN(TaggedSentence, NumberOfCategories)
-        NNPResult = NNP(TaggedSentence, NumberOfCategories)
-        RPResult = RP(TaggedSentence, NumberOfCategories)
-        INResult = IN(TaggedSentence, NumberOfCategories)
-        RBResult = RB(TaggedSentence, NumberOfCategories)
-        PRPResult = PRP(TaggedSentence, NumberOfCategories)
+    VBResult = VB(TaggedSentence, NumberOfCategories)
+    VBPResult = VBP(TaggedSentence, NumberOfCategories)
+    NNResult = NN(TaggedSentence, NumberOfCategories)
+    NNPResult = NNP(TaggedSentence, NumberOfCategories)
+    RPResult = RP(TaggedSentence, NumberOfCategories)
+    INResult = IN(TaggedSentence, NumberOfCategories)
+    RBResult = RB(TaggedSentence, NumberOfCategories)
+    PRPResult = PRP(TaggedSentence, NumberOfCategories)
             
-        if VBResult == True and VBPResult == True and NNResult == True and NNPResult == True and RPResult == True and INResult == True and RBResult == True and PRPResult == True:
-            return True
+    if VBResult == True and VBPResult == True and NNResult == True and NNPResult == True and RPResult == True and INResult == True and RBResult == True and PRPResult == True:
+        return True
               
     return False
       
