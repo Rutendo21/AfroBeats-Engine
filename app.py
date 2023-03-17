@@ -5,6 +5,9 @@ import lyricsgenius
 import markovify
 import random
 import nltk
+nltk.download('all')
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 import string
 import math
 
@@ -48,7 +51,7 @@ def main(Artist):
     
     File, FilePath, SongTitles, ThemeWords, Sounds = LoadData(Artist)
     
-    StopWords = nltk.download('stopwords')
+    StopWords = stopwords
     
     ThemeWord, ThemeSound = Theme(SongTitles, ThemeWords, Sounds)
     
@@ -208,7 +211,7 @@ def tokenize(Sentence, StopWords):
     
     SentenceWords = []
 
-    words = nltk.tokenize.word_tokenize(Sentence)
+    words = word_tokenize(Sentence)
     for word in words:
         word = word.lower()
         punctuations = string.punctuation
