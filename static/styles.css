@@ -72,9 +72,7 @@ h1
 
 .Song
 {
-    text-align: center;
-    font-size: 12.3px;
-    position: relative;
+    position: absolute;
     padding-right: 8%;
     padding-left: 8%;
     font-family: arial;
@@ -83,11 +81,13 @@ h1
     color: #000000;
     top: 23%;
     font-weight: bolder;
-    width: 75%;
+    transform: translate(-20%);
 }
 
 .Line
 {
+    text-align: center;
+    font-size: 12.3px;
     line-height: 13px;
     overflow-wrap: break-word;
     word-wrap: break-word;
