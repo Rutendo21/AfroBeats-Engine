@@ -38,10 +38,12 @@
 
                 <div class="Position2">
                     <div class="SmallCircle">
-                        <div class="Song"> 
-                            {% for Line in Song %}
-                            <p class="Line">{{Line}}</p>
-                            {% endfor %}
+                        <div class="Song">
+                            <div class="ActualSong">
+                                {% for Line in Song %}
+                                <p class="Line">{{Line}}</p>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
