@@ -83,6 +83,8 @@ h1
     color: #000000;
     top: 23%;
     font-weight: bolder;
+    transform: translate(-50%);
+    width: inherit;
 }
 
 .Line
@@ -91,7 +93,4 @@ h1
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
