@@ -1,20 +1,54 @@
+#loading {
+    width: 100.5vw;
+    height: 100.5vh;
+    margin: -10px;
+    overflow: hidden;
+    background-color: #E1C6B2;
+}
+
+#loadinglogo {
+    width: 20vw;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    animation-name: size;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes size {
+    50% {
+        transform: rotate(180deg)
+    }
+}
+
 body
 {
     background-image: url(/static/Background.jpg);
     background-size: cover;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    vertical-align: middle;
+    overflow: hidden;
 }
 
 .Position
 {
+    width: 95vw;
+    height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
+    position: relative;
 }
 
 .Circle
 {
-    width: 500px;
-    height: 500px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     background: #FFFFFF;
     position: relative;
@@ -24,7 +58,6 @@ body
 h1
 {
     text-align: center;
-    font-size: 26px;
     color: #E1C6B2;
     font-weight: bold;
     position: absolute;
@@ -32,13 +65,13 @@ h1
     width: 80%;
     padding-right: 10%;
     padding-left: 10%;
-    font-family: arial;
+    font-family: Arial;
 }
 
 .Artist
 {
     width: 30%;
-    font-size: 13px;
+    font-size: 80%;
     background-color: #FFFFFF;
     border: solid;
     border-width: 2px;
@@ -46,12 +79,21 @@ h1
     border-radius: 5px;
     color: #000000;
     position: absolute;
-    bottom: 47%;
+    bottom: 50%;
     right: 35%;
-    font-family: arial;
+    font-family: Arial;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    vertical-align: top;
+    max-height: 100vh;
+    overflow-y: hidden;
+}
+
+.ArtistName {
+    cursor: pointer;
+    overflow-y: hidden;
 }
 
 .Position2
@@ -61,35 +103,176 @@ h1
 
 .SmallCircle
 {
-    width: 300px;
-    height: 300px;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     position: absolute;
-    background: #FFFFFF;
-    border: 7px solid #E1C6B2;
+    background: #E1C6B2;
     left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .Song
 {
     text-align: center;
-    font-size: 12.3px;
     position: absolute;
-    padding-right: 8%;
-    padding-left: 8%;
-    font-family: arial;
-    font-style: italic;
-    font-weight: lighter;
+    font-family: Calibri;
+    font-weight: bold;
     color: #000000;
-    top: 23%;
-    font-weight: bolder;
+    width: 80%;
 }
 
 .Line
 {
     text-align: center;
-    line-height: 13px;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
+}
+
+@media only screen and (min-width: 1200px) {  
+    .Circle {
+        width: 48%;
+    }
+
+    h1 {
+        font-size: 2vw;
+    }
+
+    .SmallCircle {
+        width: 22%;
+    }
+
+    .Song {
+        line-height: 1.6vh;
+        font-size: 1vw;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1200px) {  
+    .Circle {
+        width: 56%;
+    }
+
+    h1 {
+        font-size: 2.5vw;
+    }
+
+    .SmallCircle {
+        width: 27%;
+    }
+
+    .Song {
+        line-height: 1.55vh;
+        font-size: 1.3vw;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {  
+    .Circle {
+        width: 64%;
+    }
+
+    h1 {
+        font-size: 3vw;
+    }
+
+    .SmallCircle {
+        width: 31%;
+    }
+
+    .Song {
+        line-height: 1.5vh;
+        font-size: 1.4vw;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {  
+    .Circle {
+        width: 80%;
+    }
+
+    h1 {
+        font-size: 3.5vw;
+    }
+
+    .SmallCircle {
+        width: 40%;
+    }
+
+    .Song {
+        line-height: 1.6vw;
+        font-size: 2vw;
+    }
+}
+
+@media only screen and (max-width: 480px) {  
+    .Circle {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 4vw;
+    }
+
+    .SmallCircle {
+        width: 50%;
+    }
+
+    .Song {
+        line-height: 1.9vw;
+        font-size: 2.8vw;
+    }
+}
+
+@media only screen and (max-width: 380px) { 
+    .Song {
+        line-height: 2.1vw;
+        font-size: 3vw;
+    }
+}
+
+@media only screen and (max-height: 600px) and (min-width: 500px) {  
+    .Circle {
+        max-width: 75vh;
+        margin-top: -10vh;
+    }
+
+    h1 {
+        font-size: 3.3vh;
+    }
+
+    .SmallCircle {
+        max-width: 35vh;
+        margin-top: -5vh;
+    }
+
+    .Artist {
+        font-size: 1.8vh;
+    }
+
+    .Song {
+        line-height: 1vw;
+        font-size: 1.9vh;
+        margin: 15vh;
+    }
+    #loadinglogo {
+        width: 30vh;
+    }
+}
+
+@media only screen and (max-height: 400px) and (min-width: 500px) {  
+    body {
+        overflow-y: scroll;
+    }
+    .Circle {
+        margin-top: -10vh;
+    }
+    .SmallCircle {
+        margin-top: -5vh;
+    }
+    .Artist {
+        font-size: 1.6vh;
+    }
 }

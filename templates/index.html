@@ -15,10 +15,14 @@
 
     <body>
 
-        <br></br>
-        <br></br>
+        <div id="loading">
+            <image src="static/AfrobeatsToTheWorld.jpg" id="loadinglogo" rel="image" />
+        </div>
 
         <form action="/" method="post" class="Submit" id="Form">
+            <br></br>
+            <br></br>
+            
             <div class="Position">
                 <div class="Circle">
                     <div class="Text">
@@ -26,7 +30,7 @@
                         <br></br>
                         <br></br>
                         <div class='Artists'>
-                            <select class="Artist" id="Artist" name="Artist" onchange="this.form.submit()" required>
+                            <select class="Artist" id="Artist" name="Artist" onchange="Load() ; this.form.submit()" required>
                                 <option disabled selected value="">Artist</option>
                                 {% for Artist in Artists %}
                                 <option class="ArtistName" required>{{Artist[0]}}</option>
@@ -51,6 +55,21 @@
 
     </body>
 
-    <footer></footer>
+    <script>
+        document.onreadystatechange = function() {
+            if (document.readyState !== "complete") {
+                document.querySelector("form").style.display = "none";
+                document.querySelector("#loading").style.display = "block";
+            } else {
+                document.querySelector("form").style.display = "block";
+                document.querySelector("#loading").style.display = "none";
+            }
+        }
+
+        function Load() {
+            document.querySelector("form").style.display = "none";
+            document.querySelector("#loading").style.display = "block";
+        }
+    </script>
 
 </html>
