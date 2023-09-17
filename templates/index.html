@@ -56,16 +56,6 @@
     </body>
 
     <script>
-        document.onreadystatechange = function() {
-            if (document.readyState !== "complete") {
-                document.querySelector("form").style.display = "none";
-                document.querySelector("#loading").style.display = "block";
-            } else {
-                document.querySelector("form").style.display = "block";
-                document.querySelector("#loading").style.display = "none";
-            }
-        }
-
         function Load() {
             document.querySelector("form").style.display = "none";
             document.querySelector("#loading").style.display = "block";
