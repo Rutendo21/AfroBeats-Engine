@@ -5,7 +5,7 @@ import lyricsgenius
 import markovify
 import random
 import nltk
-nltk.download('corpus')
+nltk.download('stopwords')
 from nltk.corpus import stopwords
 import string
 import math
