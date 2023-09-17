@@ -5,6 +5,7 @@ import lyricsgenius
 import markovify
 import random
 import nltk
+nltk.download('all')
 import string
 import math
 
