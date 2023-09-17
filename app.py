@@ -7,6 +7,7 @@ import random
 import nltk
 nltk.download('stopwords')
 nltk.download('punkt')
+nltk.download("averaged_perception_tagger")
 from nltk.corpus import stopwords
 import string
 import math
